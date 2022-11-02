@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from ltbm.serializers import DegTableSerializers
-from ltbm.models import DegTable
+from ltbm.serializers import BookSerializers
+from ltbm.models import Book
 
 # 最基础的APIView 重写了request 和 response 的相关逻辑
 # class BookView(APIView):
@@ -158,8 +158,8 @@ from ltbm.models import DegTable
 from rest_framework.viewsets import ModelViewSet
 
 
-class DegTableView(ModelViewSet):
-    queryset = DegTable.objects.all()
-    serializer_class = DegTableSerializers
+class BookView(ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializers
 
 # 但是封装的越多，导致代码的灵活性越低，在需要的时候需要基于基类自行修改而不是使用最后的封装

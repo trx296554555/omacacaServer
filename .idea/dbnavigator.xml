@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -28,7 +28,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="d8b106a1-5d14-4b68-bef0-b6639e7c69eb">
+    <connection id="17cf7948-0fba-413e-b3b1-f6f8f31f5286">
       <console name="Connection" type="STANDARD" schema="main" session="Main" />
     </connection>
   </component>
@@ -36,10 +36,19 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="d8b106a1-5d14-4b68-bef0-b6639e7c69eb" />
+    <connection id="17cf7948-0fba-413e-b3b1-f6f8f31f5286" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="d8b106a1-5d14-4b68-bef0-b6639e7c69eb" dataset="main.ltgem_book" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="17cf7948-0fba-413e-b3b1-f6f8f31f5286" dataset="main.django_migrations" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="17cf7948-0fba-413e-b3b1-f6f8f31f5286" dataset="main.ltbm_degtable" active-filter-id="EMPTY_FILTER">
+      <filter id="8d75b41a-7087-4c4d-82d8-ea8ca77fcd13" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="17cf7948-0fba-413e-b3b1-f6f8f31f5286" dataset="main.sqlite_sequence" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="17cf7948-0fba-413e-b3b1-f6f8f31f5286" dataset="main.ltbm_book" active-filter-id="" />
+    <filter-actions connection-id="17cf7948-0fba-413e-b3b1-f6f8f31f5286" dataset="main.django_admin_log" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="17cf7948-0fba-413e-b3b1-f6f8f31f5286" dataset="main.django_session" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -70,7 +79,7 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="d8b106a1-5d14-4b68-bef0-b6639e7c69eb" active="true" signed="true">
+      <connection id="17cf7948-0fba-413e-b3b1-f6f8f31f5286" active="true" signed="true">
         <database>
           <name value="Connection" />
           <description value="" />
@@ -85,7 +94,7 @@
           <port value="" />
           <database value="" />
           <files>
-            <file path="C:\Users\PC\PycharmProjects\omacacaServer\omacaca.sqlite3" schema="main" />
+            <file path="E:\PY_Practice\omacacaServer\omacaca.sqlite3" schema="main" />
           </files>
           <type value="NONE" />
           <user value="" />
@@ -283,10 +292,8 @@
           <content-type name="DTD" enabled="true" />
           <content-type name="HTML" enabled="true" />
           <content-type name="XHTML" enabled="true" />
-          <content-type name="CSS" enabled="true" />
           <content-type name="SQL" enabled="true" />
           <content-type name="PL/SQL" enabled="true" />
-          <content-type name="JavaScript" enabled="true" />
           <content-type name="JSON" enabled="true" />
           <content-type name="JSON5" enabled="true" />
           <content-type name="YAML" enabled="true" />
