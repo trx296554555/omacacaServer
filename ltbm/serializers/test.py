@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Book
+from ..models import DegTable
 
 
 # 针对模型设计序列化器 原始方法自己设定
@@ -24,6 +24,6 @@ class BookSerializers(serializers.ModelSerializer):
     date = serializers.DateField(source='pub_date')
 
     class Meta:
-        model = Book
+        model = DegTable
         # fields = "__all__"
         exclude = ['id', 'pub_date']
