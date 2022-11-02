@@ -13,7 +13,7 @@ def load_df_to_sqlite(data, connection, table_name):
     print(f"Now loading table {table_name} information, please wait...")
     start_time = time.time()
 
-    data.to_sql(table_name, connection, if_exists='append', index=False)
+    data.to_sql(table_name, connection, if_exists='replace', index=True, index_label='uniq_num', chunksize=100000)
 
     print(f"table {table_name} loaded, used time : {time.time() - start_time}")
 

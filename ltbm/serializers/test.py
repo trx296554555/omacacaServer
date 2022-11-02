@@ -20,7 +20,7 @@ from ..models import DegTable
 #         return updated_book
 
 # ModelSerializer类能够让你自动创建一个具有模型中相应字段的Serializer类
-class BookSerializers(serializers.ModelSerializer):
+class DegTableSerializers(serializers.ModelSerializer):
     date = serializers.DateField(source='pub_date')
 
     class Meta:
