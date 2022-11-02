@@ -24,6 +24,7 @@ urlpatterns = []
 # ]
 
 router = routers.DefaultRouter()
-router.register('test', views.DegTableView)
+router.register('test', views.BookView)
+router.register('degtable', views.DegTableView)
 
 urlpatterns += router.urls

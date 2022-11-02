@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import DegTable
+from ..models import Book
 
 
 # 针对模型设计序列化器 原始方法自己设定
@@ -20,10 +20,10 @@ from ..models import DegTable
 #         return updated_book
 
 # ModelSerializer类能够让你自动创建一个具有模型中相应字段的Serializer类
-class DegTableSerializers(serializers.ModelSerializer):
+class BookSerializers(serializers.ModelSerializer):
     date = serializers.DateField(source='pub_date')
 
     class Meta:
-        model = DegTable
+        model = Book
         # fields = "__all__"
         exclude = ['id', 'pub_date']
