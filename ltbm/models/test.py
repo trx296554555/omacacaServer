@@ -11,6 +11,7 @@ from django.db import models
 
 
 class DegTable(models.Model):
+    uniq_num = models.IntegerField(verbose_name="uniq_num")
     gene_id = models.CharField(max_length=32, verbose_name="Ensemble ID")
     baseMean = models.FloatField(verbose_name="baseMean")
     log2FoldChange = models.FloatField(verbose_name="log2FoldChange")

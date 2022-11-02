@@ -24,6 +24,7 @@ def load_csv_from_local(res_path):
                     tmp_df['comp1'] = comp1_name
                     tmp_df['comp2'] = comp2_name
                     df_data = pd.concat([df_data, tmp_df], ignore_index=True)
+                    # print(df_data)
     return df_data
 
 
