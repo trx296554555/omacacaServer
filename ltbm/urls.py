@@ -28,3 +28,6 @@ router.register('test', views.BookView)
 router.register('degtable', views.DegTableView)
 
 urlpatterns += router.urls
+
+# 分页
+# router.register(r'^degtable', views.DegTableView({'get': 'get_all'}))
