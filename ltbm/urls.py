@@ -2,7 +2,6 @@ from django.urls import path, re_path
 from . import views
 from rest_framework import routers
 
-urlpatterns = []
 # APIView 无名分组传参 按顺序来
 # urlpatterns = [
 #     path('test', views.BookView.as_view()),
@@ -23,11 +22,13 @@ urlpatterns = []
 #             views.BookView.as_view({"get": "retrieve", "put": "update", "delete": "destory"}))
 # ]
 
+urlpatterns = [
+    path('degtable', views.DegTableView.as_view())
+]
+
 router = routers.DefaultRouter()
 router.register('test', views.BookView)
-router.register('degtable', views.DegTableView)
 
 urlpatterns += router.urls
-
 # 分页
 # router.register(r'^degtable', views.DegTableView({'get': 'get_all'}))

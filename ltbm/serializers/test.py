@@ -15,7 +15,7 @@ from ..models import Book
 #
 #     def update(self, instance, validated_data):
 #         # 更新逻辑   serializer.validated_data
-#         Book.objects.filter(pk=instance.pk).update(**validated_data)
+#         Book.objects.filters(pk=instance.pk).update(**validated_data)
 #         updated_book = Book.objects.get(pk=instance.pk)
 #         return updated_book
 

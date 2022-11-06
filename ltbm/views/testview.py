@@ -159,6 +159,13 @@ from rest_framework.viewsets import ModelViewSet
 
 
 class BookView(ModelViewSet):
+    """
+       博客视图集
+
+       list: 返回所有博客列表
+       retrieve: 查询主键 id 的博客
+    """
+    # swagger_schema = None   # 在API文档中 隐藏此视图的API
     queryset = Book.objects.all()
     serializer_class = BookSerializers
 
