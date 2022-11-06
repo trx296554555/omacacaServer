@@ -3,7 +3,7 @@ from django.db import models
 
 class DegTable(models.Model):
     id = models.AutoField(primary_key=True)
-    gene_id = models.CharField(max_length=32, verbose_name="Ensemble ID")
+    gene_id_ENSG = models.CharField(max_length=32, verbose_name="Ensemble ID", help_text='Ensemble Gene Uniq ID')
     baseMean = models.FloatField(verbose_name="baseMean")
     log2FoldChange = models.FloatField(verbose_name="log2FoldChange")
     lfcSE = models.FloatField(verbose_name="lfcSE")

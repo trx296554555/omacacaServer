@@ -12,7 +12,7 @@ if __name__ == '__main__':
         print('数据库连接失败！')
 
     # VariancePartition 结果导入表 DegTable
-    helper.load_df_to_sqlite(insert_degtable.load_csv_from_local(r'E:\RES'), conn, 'ltbm_degtable')
+    helper.load_df_to_sqlite(insert_degtable.load_csv_from_local(r'D:\Lab\猕猴\分析\RES'), conn, 'ltbm_degtable')
 
 
     # # M1Ta的 标准化表达矩阵 导入表 getData_m1taallvstexpression

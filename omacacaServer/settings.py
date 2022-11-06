@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,14 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
+    'drf_yasg',
     'ltbm'
 ]
-
-REST_FRAMEWORK = {
-    # 过滤器默认后端
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',),
-}
+# 全局配置，会覆盖所有局部配置，因此不使用，单独使用局部配置
+# REST_FRAMEWORK = {
+#     # 过滤器默认后端
+#     'DEFAULT_FILTER_BACKENDS': (
+#         'django_filters.rest_framework.DjangoFilterBackend',),
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'middleware.log_middleware.RequestLogMiddleware',
 ]
 
 ROOT_URLCONF = 'omacacaServer.urls'
@@ -125,3 +128,63 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    # 版本
+    'version': 1,
+    # 是否禁止默认配置的记录器
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '{"time": "%(asctime)s", "level": "%(levelname)s", "method": "%(method)s", "username": "%(username)s", "sip": "%(sip)s", "dip": "%(dip)s", "path": "%(path)s", "status_code": "%(status_code)s", "reason_phrase": "%(reason_phrase)s", "func": "%(module)s.%(funcName)s:%(lineno)d",  "message": "%(message)s"}',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s %(asctime)s %(module)s line:%(lineno)d %(message)s'
+        },
+    },
+    # 过滤器
+    'filters': {
+        'request_info': {'()': 'middleware.log_middleware.RequestLogFilter'},
+        'require_debug_true': {'()': 'django.utils.log.RequireDebugTrue'},
+    },
+    'handlers': {
+        # 标准输出
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'filters': ['require_debug_true'],
+            'formatter': 'simple'
+        },
+        # 自定义 handlers，输出到文件
+        'restful_api': {
+            'level': 'INFO',
+            # 时间滚动切分
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            # 日志位置,日志文件名,日志保存目录必须手动创建，注：这里的文件路径要注意BASE_DIR
+            'filename': os.path.join(BASE_DIR, "logs", "omacacaServer.log"),
+            'formatter': 'standard',
+            # 调用过滤器
+            'filters': ['request_info'],
+            # 每天凌晨切分
+            'when': 'MIDNIGHT',
+            # 保存 30 天
+            'backupCount': 30,
+            # 文件内容编码
+            'encoding': 'utf-8'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False
+        },
+        'web.log': {
+            'handlers': ['restful_api'],
+            'level': 'INFO',
+            # 此记录器处理过的消息就不再让 django 记录器再次处理了
+            'propagate': False
+        },
+    }
+}
