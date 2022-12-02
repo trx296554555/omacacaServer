@@ -23,7 +23,8 @@ from rest_framework import routers
 # ]
 
 urlpatterns = [
-    path('degtable', views.DegTableView.as_view())
+    path('degtable', views.DegTableView.as_view()),
+    path('metainfo', views.MetaTableView.as_view())
 ]
 
 router = routers.DefaultRouter()

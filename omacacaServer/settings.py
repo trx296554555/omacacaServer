@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import time
 from pathlib import Path
 import os
 
@@ -162,7 +162,8 @@ LOGGING = {
             # 时间滚动切分
             'class': 'logging.handlers.TimedRotatingFileHandler',
             # 日志位置,日志文件名,日志保存目录必须手动创建，注：这里的文件路径要注意BASE_DIR
-            'filename': os.path.join(BASE_DIR, "logs", "omacacaServer.log"),
+            'filename': os.path.join(BASE_DIR, "logs",
+                                     f"omacacaServer-{time.strftime('%Y%m%d-%H%M%S', time.localtime())}.log"),
             'formatter': 'standard',
             # 调用过滤器
             'filters': ['request_info'],
