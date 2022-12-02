@@ -10,8 +10,10 @@ from rest_framework.pagination import PageNumberPagination
 
 
 class DegTablePagination(PageNumberPagination):
-    page_size = 20
-    max_page_size = 500
+    # page_size = 20
+    page_size_query_param = 'size'
+    max_page_size = 1500
+    ordering = ['id']
 
 
 class DegTableView(ListAPIView):

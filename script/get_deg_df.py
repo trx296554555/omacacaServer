@@ -3,9 +3,9 @@ import helper
 import os
 
 
-def load_csv_from_local(res_path):
+def recursion_load_deg_csv(res_path):
     """
-    :param res_path: 需要读入的RES结果路径，如：E:\RES
+    :param res_path: 需要读入的DEG结果路径，如：E:\\RES
     :return: 返回拼接好的包含所有model结果的dataframe
     """
     root_value = 'logFC1_padj0.05'
@@ -25,7 +25,8 @@ def load_csv_from_local(res_path):
                     tmp_df['comp1'] = comp1_name
                     tmp_df['comp2'] = comp2_name
                     df_data = pd.concat([df_data, tmp_df], ignore_index=True)
-        print(df_data)
+    else:
+        print(f"找不到文件夹{res_path}")
     return df_data
 
 # load_csv_from_local(r'E:\RES')
