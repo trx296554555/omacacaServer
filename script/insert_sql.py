@@ -8,8 +8,8 @@ if __name__ == '__main__':
         conn = sqlite3.connect(r'../omacaca.sqlite3')
         cursor = conn.cursor()
         print('数据库连接成功！')
-        # cursor.execute("DELETE FROM ltbm_degtable")
-        # cursor.execute("update sqlite_sequence set seq=0 where name='ltbm_degtable';")
+        # cursor.execute("DELETE FROM ltbm_metatable")
+        # cursor.execute("update sqlite_sequence set seq=0 where name='ltbm_metatable';")
         # conn.commit()
     except:
         print('数据库连接失败！')

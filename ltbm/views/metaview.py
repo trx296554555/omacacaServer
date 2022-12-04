@@ -26,3 +26,16 @@ class MetaTableView(ListAPIView):
     ordering_fields = ['stage', 'sex', 'individual', 'breeding_condition']  # 排序
     search_fields = ['sample_id']
     pagination_class = MetaTablePagination  # 分页
+
+
+class UmapTableView(ListAPIView):
+    """
+    获取绘制 Umap Plot 的样本信息的结果
+    """
+    queryset = Metatable.objects.all()
+    serializer_class = metaser.MetaUmapSerializers
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filterset_class = MetaTableFilter  # 过滤类
+    ordering_fields = ['stage', 'sex', 'individual', 'breeding_condition']  # 排序
+    search_fields = ['sample_id']
+    pagination_class = MetaTablePagination  # 分页
