@@ -4,9 +4,15 @@ from django_filters import rest_framework as filters
 
 
 class DegTableFilter(filters.FilterSet):
-    max_padj = filters.NumberFilter(field_name="padj", lookup_expr='lte', help_text="过滤FDR的阈值上限 建议0.01")
 
-    # min_padj = filters.NumberFilter(field_name="padj", lookup_expr='gte')
+    def abs_gt(self, queryset, name, value):
+        if value < 0:
+            value = -value
+        return queryset.filter(**{f'{name}__gt': value}).union(queryset.filter(**{f'{name}__lte': value * -1}))
+
+    max_padj = filters.NumberFilter(field_name="padj", lookup_expr='lte', help_text="过滤FDR的阈值上限 建议0.01")
+    min_lfc = filters.NumberFilter(field_name="log2FoldChange", method='abs_gt',
+                                   help_text="过滤LFC的绝对值阈值下限 建议1")
 
     class Meta:
         model = DegTable  # 模型名
