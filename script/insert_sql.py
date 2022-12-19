@@ -15,12 +15,16 @@ if __name__ == '__main__':
         print('数据库连接失败！')
 
     #  数据元信息 导入表 MetaTable
-    helper.load_df_to_sqlite(helper.csv_to_data_frame(r'C:\Users\29655\Desktop\Meta_info.csv', {}, encoding='gbk'),
+    helper.load_df_to_sqlite(helper.csv_to_data_frame(r'D:\lab\猕猴\可视化\Meta_info\Meta_info.csv', {}, encoding='gbk'),
                              conn,
                              'ltbm_metatable')
     # DEG ORA 结果导入表 DegTable
-    helper.load_df_to_sqlite(get_deg_df.recursion_load_deg_csv(r'C:\Users\29655\Desktop\Lab\猕猴\分析\RES'), conn,
+    helper.load_df_to_sqlite(get_deg_df.recursion_load_deg_csv(r'D:\lab\猕猴\分析\转录组DEG\RES'), conn,
                              'ltbm_degtable')
+    # DEG enrichment 导入表 DegEnrichmentTable
+    helper.load_df_to_sqlite(get_deg_df.recursion_load_deg_enrichment_csv(r'D:\lab\猕猴\分析\转录组DEG\GPF'),
+                             conn,'ltbm_degenrichmenttable')
+
 
     # DEG GSEA 结果导入表 GseaTable
 

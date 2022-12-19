@@ -1,5 +1,5 @@
 # filters.py
-from ltbm.models import DegTable
+from ltbm.models import DegTable, DegEnrichmentTable
 from django_filters import rest_framework as filters
 
 
@@ -24,4 +24,20 @@ class DegTableFilter(filters.FilterSet):
             'model_type': ['exact'],
             'comp1': ['exact'],
             'comp2': ['exact'],
+        }
+
+
+class DegEnrichFilter(filters.FilterSet):
+    class Meta:
+        model = DegEnrichmentTable  # 模型名
+        fields = {
+            # 不必要的
+            'source': ['exact'],
+            # 必要的
+            'model_type': ['exact'],
+            'comp1': ['exact'],
+            'comp2': ['exact'],
+            'lfc_threshold': ['exact'],
+            'padj_threshold': ['exact'],
+            'regulation': ['exact'],
         }

@@ -1,6 +1,6 @@
 from ltbm.serializers import degser
-from ltbm.models import DegTable
-from ltbm.filters import DegTableFilter
+from ltbm.models import DegTable, DegEnrichmentTable
+from ltbm.filters import DegTableFilter, DegEnrichFilter
 # 和 终极封装 ViewModelSet
 # from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView
@@ -32,9 +32,26 @@ class DegTableView(ListAPIView):
     ordering_fields = ['baseMean', 'log2FoldChange', 'pvalue', 'padj']  # 排序
     search_fields = ['gene_id_ENSG']
     pagination_class = DegTablePagination  # 分页
+
+
+class DegEnrichView(ListAPIView):
+    """
+    获取DEG的富集结果
+    """
+    queryset = DegEnrichmentTable.objects.all()
+    serializer_class = degser.DegEnrichSerializers
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filterset_class = DegEnrichFilter  # 过滤类
+    ordering_fields = ['source', 'adjusted_p_value', 'term_size','intersection_size', 'rich_factor']  # 排序
+    search_fields = ['term_name', 'term_id', 'intersections']
+    pagination_class = DegTablePagination  # 分页
+
+
+
+
+
+
 # 但是封装的越多，导致代码的灵活性越低，在需要的时候需要基于基类自行修改而不是使用最后的封装
-
-
 # 模块导入
 # from rest_framework.pagination import PageNumberPagination,CursorPagination,LimitOffsetPagination
 
