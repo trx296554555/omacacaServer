@@ -193,7 +193,7 @@ LOGGING = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    "https://example.com",
+    "https://www.omacaca.com",
     "https://sub.example.com",
     "http://localhost:5404",
     "http://127.0.0.1:5404",
