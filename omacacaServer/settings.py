@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hf-hhtysu07#)*@ku0(dpk%r3@blo+@(=p-48v8sv(%^g#br#i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -124,7 +124,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/api/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -194,7 +195,10 @@ LOGGING = {
 
 CORS_ORIGIN_WHITELIST = [
     "https://www.omacaca.com",
-    "https://sub.example.com",
+    "https://omacaca.com",
+    "https://omacaca.netlify.app",
     "http://localhost:5404",
     "http://127.0.0.1:5404",
+    "http://localhost:4173",
+    "http://127.0.0.1:4173"
 ]
