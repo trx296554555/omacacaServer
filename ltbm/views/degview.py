@@ -1,6 +1,6 @@
 from ltbm.serializers import degser
-from ltbm.models import DegTable, DegEnrichmentTable
-from ltbm.filters import DegTableFilter, DegEnrichFilter
+from ltbm.models import DegTable, DegEnrichmentTable, GseaEnrichmentTable
+from ltbm.filters import DegTableFilter, DegEnrichFilter, GseaEnrichFilter
 # 和 终极封装 ViewModelSet
 # from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView
@@ -36,7 +36,7 @@ class DegTableView(ListAPIView):
 
 class DegEnrichView(ListAPIView):
     """
-    获取DEG的富集结果
+    获取 DEG 的 ORA富集结果
     """
     queryset = DegEnrichmentTable.objects.all()
     serializer_class = degser.DegEnrichSerializers
@@ -47,7 +47,17 @@ class DegEnrichView(ListAPIView):
     pagination_class = DegTablePagination  # 分页
 
 
-
+class GseaEnrichView(ListAPIView):
+    """
+    获取 DEG 的 GSEA富集结果
+    """
+    queryset = GseaEnrichmentTable.objects.all()
+    serializer_class = degser.GseaEnrichSerializers
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filterset_class = GseaEnrichFilter  # 过滤类
+    ordering_fields = ['source', 'p_adjust', 'setsize','leading_edge_number', 'rich_factor']  # 排序
+    search_fields = ['term_name', 'term_id', 'core_enrichment']
+    pagination_class = DegTablePagination  # 分页
 
 
 
