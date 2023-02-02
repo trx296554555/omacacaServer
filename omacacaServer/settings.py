@@ -197,6 +197,8 @@ CORS_ORIGIN_WHITELIST = [
     "https://www.omacaca.com",
     "https://omacaca.com",
     "https://omacaca.netlify.app",
+    "http://omacaca.com",
+    "http://www.omacaca.com",
     "http://localhost:5404",
     "http://127.0.0.1:5404",
     "http://localhost:4173",

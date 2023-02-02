@@ -1,6 +1,7 @@
 import get_deg_df
 import sqlite3
 import helper
+import statistical_deg_num
 
 if __name__ == '__main__':
 
@@ -28,6 +29,10 @@ if __name__ == '__main__':
     # DEG GSEA 结果导入表 GseaTable
     helper.load_df_to_sqlite(get_deg_df.recursion_load_gsea_enrichment_csv(r'D:\lab\猕猴\分析\转录组DEG\GSEA'), conn,
                              'ltbm_gseaenrichmenttable')
+    # DEG 数量统计结果导入表 DegHtmTable
+    helper.load_df_to_sqlite(statistical_deg_num.get_htm_df(), conn, 'ltbm_deghtmtable')
+    # DEG others 数量统计结果导入表 DegStkTable
+    helper.load_df_to_sqlite(statistical_deg_num.get_stk_df(), conn, 'ltbm_degstktable')
 
     # # M1Ta的 标准化表达矩阵 导入表 getData_m1taallvstexpression VariancePartition
     # load_df_to_sqlite(

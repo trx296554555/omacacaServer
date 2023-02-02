@@ -1,6 +1,6 @@
 from ltbm.serializers import degser
-from ltbm.models import DegTable, DegEnrichmentTable, GseaEnrichmentTable
-from ltbm.filters import DegTableFilter, DegEnrichFilter, GseaEnrichFilter
+from ltbm.models import DegTable, DegEnrichmentTable, GseaEnrichmentTable, DegHtmTable, DegStkTable
+from ltbm.filters import DegTableFilter, DegEnrichFilter, GseaEnrichFilter, DegHtmFilter, DegStkFilter
 # 和 终极封装 ViewModelSet
 # from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView
@@ -42,7 +42,7 @@ class DegEnrichView(ListAPIView):
     serializer_class = degser.DegEnrichSerializers
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = DegEnrichFilter  # 过滤类
-    ordering_fields = ['source', 'adjusted_p_value', 'term_size','intersection_size', 'rich_factor']  # 排序
+    ordering_fields = ['source', 'adjusted_p_value', 'term_size', 'intersection_size', 'rich_factor']  # 排序
     search_fields = ['term_name', 'term_id', 'intersections']
     pagination_class = DegTablePagination  # 分页
 
@@ -55,11 +55,31 @@ class GseaEnrichView(ListAPIView):
     serializer_class = degser.GseaEnrichSerializers
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = GseaEnrichFilter  # 过滤类
-    ordering_fields = ['source', 'p_adjust', 'setsize','leading_edge_number', 'rich_factor']  # 排序
+    ordering_fields = ['source', 'p_adjust', 'setsize', 'leading_edge_number', 'rich_factor']  # 排序
     search_fields = ['term_name', 'term_id', 'core_enrichment']
     pagination_class = DegTablePagination  # 分页
 
 
+class DegHtmView(ListAPIView):
+    """
+    获取 DEG 的数量统计结果
+    """
+    queryset = DegHtmTable.objects.all()
+    serializer_class = degser.DegHtmSerializers
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = DegHtmFilter  # 过滤类
+    pagination_class = DegTablePagination  # 分页
+
+
+class DegStkView(ListAPIView):
+    """
+    获取 DEG 的数量统计结果
+    """
+    queryset = DegStkTable.objects.all()
+    serializer_class = degser.DegStkSerializers
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = DegStkFilter  # 过滤类
+    pagination_class = DegTablePagination  # 分页
 
 # 但是封装的越多，导致代码的灵活性越低，在需要的时候需要基于基类自行修改而不是使用最后的封装
 # 模块导入

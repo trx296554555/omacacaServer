@@ -85,3 +85,44 @@ class GseaEnrichmentTable(models.Model):
 
     class Meta:
         app_label = 'ltbm'
+
+
+class DegHtmTable(models.Model):
+    """
+    DEG 差异基因数量统计结果表 用于绘制heatmap
+    """
+    id = models.AutoField(primary_key=True)
+    # csv表中原有的字段
+    x = models.CharField(max_length=32, verbose_name="X")
+    y = models.CharField(max_length=32, verbose_name="Y")
+    up = models.IntegerField(verbose_name="Up")
+    down = models.IntegerField(verbose_name="Down")
+    size = models.IntegerField(verbose_name="Size")
+    rate = models.FloatField(verbose_name="Rate")
+    # 根据csv表来源不同，添加的字段
+    analyse = models.CharField(max_length=8, verbose_name="Analyse")
+    model_type = models.CharField(max_length=8, verbose_name="Model")
+    lfc_threshold = models.FloatField(verbose_name="LFC_threshold")
+    padj_threshold = models.FloatField(verbose_name="P_adj_threshold")
+
+    class Meta:
+        app_label = 'ltbm'
+
+
+class DegStkTable(models.Model):
+    """
+    DEG others差异基因数量统计结果表 用于绘制stacked plot
+    """
+    id = models.AutoField(primary_key=True)
+    # csv表中原有的字段
+    category = models.CharField(max_length=32, verbose_name="Category")
+    LogFC = models.CharField(max_length=32, verbose_name="LogFC")
+    value = models.IntegerField(verbose_name="Value")
+    # 根据csv表来源不同，添加的字段
+    analyse = models.CharField(max_length=8, verbose_name="Analyse")
+    model_type = models.CharField(max_length=8, verbose_name="Model")
+    lfc_threshold = models.FloatField(verbose_name="LFC_threshold")
+    padj_threshold = models.FloatField(verbose_name="P_adj_threshold")
+
+    class Meta:
+        app_label = 'ltbm'

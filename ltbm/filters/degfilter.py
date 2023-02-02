@@ -1,5 +1,5 @@
 # filters.py
-from ltbm.models import DegTable, DegEnrichmentTable, GseaEnrichmentTable
+from ltbm.models import DegTable, DegEnrichmentTable, GseaEnrichmentTable, DegHtmTable, DegStkTable
 from django_filters import rest_framework as filters
 
 
@@ -42,6 +42,7 @@ class DegEnrichFilter(filters.FilterSet):
             'regulation': ['exact'],
         }
 
+
 class GseaEnrichFilter(filters.FilterSet):
     class Meta:
         model = GseaEnrichmentTable  # 模型名
@@ -52,4 +53,28 @@ class GseaEnrichFilter(filters.FilterSet):
             'model_type': ['exact'],
             'comp1': ['exact'],
             'comp2': ['exact'],
+        }
+
+
+class DegHtmFilter(filters.FilterSet):
+    class Meta:
+        model = DegHtmTable  # 模型名
+        fields = {
+            # 必要的
+            'analyse': ['exact'],
+            'model_type': ['exact'],
+            'lfc_threshold': ['exact'],
+            'padj_threshold': ['exact'],
+        }
+
+
+class DegStkFilter(filters.FilterSet):
+    class Meta:
+        model = DegStkTable  # 模型名
+        fields = {
+            # 必要的
+            'analyse': ['exact'],
+            'model_type': ['exact'],
+            'lfc_threshold': ['exact'],
+            'padj_threshold': ['exact'],
         }
