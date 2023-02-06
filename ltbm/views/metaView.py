@@ -1,4 +1,4 @@
-from ltbm.serializers import metaser
+from ltbm.serializers import metaSer
 from ltbm.models import Metatable
 from ltbm.filters import MetaTableFilter
 # 和 终极封装 ViewModelSet
@@ -20,7 +20,7 @@ class MetaTableView(ListAPIView):
     获取样本信息的结果 meta info
     """
     queryset = Metatable.objects.all()
-    serializer_class = metaser.MetaMetaSerializers
+    serializer_class = metaSer.MetaMetaSerializers
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = MetaTableFilter  # 过滤类
     ordering_fields = ['stage', 'sex', 'individual', 'breeding_condition']  # 排序
@@ -33,7 +33,7 @@ class UmapTableView(ListAPIView):
     获取绘制 Umap Plot 的样本信息的结果
     """
     queryset = Metatable.objects.all()
-    serializer_class = metaser.MetaUmapSerializers
+    serializer_class = metaSer.MetaUmapSerializers
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = MetaTableFilter  # 过滤类
     ordering_fields = ['stage', 'sex', 'individual', 'breeding_condition']  # 排序

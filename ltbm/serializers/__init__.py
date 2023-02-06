@@ -1,2 +1,4 @@
 from .test import *
-from .degser import *
+from .degSer import *
+from .metaSer import *
+from .geneSetSer import *

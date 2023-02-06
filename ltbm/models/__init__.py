@@ -1,3 +1,4 @@
 from .test import *
-from .degtable import *
-from .metatable import *
+from .degTable import *
+from .metaTable import *
+from .geneSetTable import *

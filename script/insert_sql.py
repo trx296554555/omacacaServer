@@ -1,4 +1,5 @@
 import get_deg_df
+import get_gene_df
 import sqlite3
 import helper
 import statistical_deg_num
@@ -33,16 +34,13 @@ if __name__ == '__main__':
     helper.load_df_to_sqlite(statistical_deg_num.get_htm_df(), conn, 'ltbm_deghtmtable')
     # DEG others 数量统计结果导入表 DegStkTable
     helper.load_df_to_sqlite(statistical_deg_num.get_stk_df(), conn, 'ltbm_degstktable')
+    # M1Ta/M4Ta 的标准化表达矩阵 导入表 GeneVstExpTable
+    helper.load_df_to_sqlite(get_gene_df.load_vst_exp_csv(r'D:\lab\猕猴\分析\转录组DEG\RES', ['M1Ta', 'M4Ta']), conn,
+                             'ltbm_genevstexptable')
+    # VPA 结果导入表 VpaTable
+    helper.load_df_to_sqlite(
+        get_gene_df.load_vpa_result_csv(r'D:\Lab\猕猴\分析\VariancePartition\M1Ta\variancePartition.csv'), conn,
+        'ltbm_vpatable')
 
-    # # M1Ta的 标准化表达矩阵 导入表 getData_m1taallvstexpression VariancePartition
-    # load_df_to_sqlite(
-    #     csv_to_data_frame(r'D:\Lab\猕猴\分析\VariancePartition\M1Ta\M1Ta_all_vst_dds.csv', {'Unnamed: 0': 'gene_id'}),
-    #     conn, 'getData_m1taallvstexpression')
-    # # M4Ta的 标准化表达矩阵 导入表 getData_m4taallvstexpression
-    # load_df_to_sqlite(
-    #     csv_to_data_frame(r'D:\Lab\猕猴\分析\VariancePartition\M4Ta\M4Ta_all_vst_dds.csv', {'Unnamed: 0': 'gene_id'}),
-    #     conn, 'getData_m4taallvstexpression')
-
-    # csv_to_data_frame(r'D:\Lab\猕猴\分析\VariancePartition\M1Ta\variancePartition.csv', {'Unnamed: 0': 'gene_id'})
     # cur.execute('SELECT * FROM getData_m1tavariancepartition')
     cursor.close()

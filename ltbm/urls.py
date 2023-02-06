@@ -30,6 +30,8 @@ urlpatterns = [
     path('degstktable', views.DegStkView.as_view()),
     path('metainfo', views.MetaTableView.as_view()),
     path('metaumap', views.UmapTableView.as_view()),
+    path('vpatable', views.VpaTableView.as_view()),
+    path('geneexp', views.GeneVstExpTableView.as_view()),
 
 ]
 

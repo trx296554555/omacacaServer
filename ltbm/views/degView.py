@@ -1,4 +1,4 @@
-from ltbm.serializers import degser
+from ltbm.serializers import degSer
 from ltbm.models import DegTable, DegEnrichmentTable, GseaEnrichmentTable, DegHtmTable, DegStkTable
 from ltbm.filters import DegTableFilter, DegEnrichFilter, GseaEnrichFilter, DegHtmFilter, DegStkFilter
 # 和 终极封装 ViewModelSet
@@ -26,7 +26,7 @@ class DegTableView(ListAPIView):
     ’$’正则表达式搜索。
     """
     queryset = DegTable.objects.all()
-    serializer_class = degser.DegTableSerializers
+    serializer_class = degSer.DegTableSerializers
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = DegTableFilter  # 过滤类
     ordering_fields = ['baseMean', 'log2FoldChange', 'pvalue', 'padj']  # 排序
@@ -39,7 +39,7 @@ class DegEnrichView(ListAPIView):
     获取 DEG 的 ORA富集结果
     """
     queryset = DegEnrichmentTable.objects.all()
-    serializer_class = degser.DegEnrichSerializers
+    serializer_class = degSer.DegEnrichSerializers
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = DegEnrichFilter  # 过滤类
     ordering_fields = ['source', 'adjusted_p_value', 'term_size', 'intersection_size', 'rich_factor']  # 排序
@@ -52,7 +52,7 @@ class GseaEnrichView(ListAPIView):
     获取 DEG 的 GSEA富集结果
     """
     queryset = GseaEnrichmentTable.objects.all()
-    serializer_class = degser.GseaEnrichSerializers
+    serializer_class = degSer.GseaEnrichSerializers
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = GseaEnrichFilter  # 过滤类
     ordering_fields = ['source', 'p_adjust', 'setsize', 'leading_edge_number', 'rich_factor']  # 排序
@@ -65,7 +65,7 @@ class DegHtmView(ListAPIView):
     获取 DEG 的数量统计结果
     """
     queryset = DegHtmTable.objects.all()
-    serializer_class = degser.DegHtmSerializers
+    serializer_class = degSer.DegHtmSerializers
     filter_backends = [DjangoFilterBackend]
     filterset_class = DegHtmFilter  # 过滤类
     pagination_class = DegTablePagination  # 分页
@@ -76,7 +76,7 @@ class DegStkView(ListAPIView):
     获取 DEG 的数量统计结果
     """
     queryset = DegStkTable.objects.all()
-    serializer_class = degser.DegStkSerializers
+    serializer_class = degSer.DegStkSerializers
     filter_backends = [DjangoFilterBackend]
     filterset_class = DegStkFilter  # 过滤类
     pagination_class = DegTablePagination  # 分页

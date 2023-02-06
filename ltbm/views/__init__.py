@@ -1,3 +1,4 @@
 from .testview import *
-from .degview import *
-from .metaview import *
+from .degView import *
+from .metaView import *
+from .geneSetView import *
