@@ -37,7 +37,7 @@ urlpatterns = [
 
 router = routers.DefaultRouter()
 router.register('test', views.BookView)
-
+# path('degtable', views.DegTableView, name="product-list")
 urlpatterns += router.urls
 # 分页
 # router.register(r'^degtable', views.DegTableView({'get': 'get_all'}))

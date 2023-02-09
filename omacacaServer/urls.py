@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
+from ltbm import views
 
 # drf_yasg 从这里开始
 from drf_yasg.views import get_schema_view
@@ -40,4 +41,5 @@ urlpatterns = [
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('ltbm/', include('ltbm.urls')),
+    path('testfilter/', views.BookFilterView.as_view())
 ]

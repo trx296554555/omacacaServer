@@ -41,6 +41,10 @@ if __name__ == '__main__':
     helper.load_df_to_sqlite(
         get_gene_df.load_vpa_result_csv(r'D:\Lab\猕猴\分析\VariancePartition\M1Ta\variancePartition.csv'), conn,
         'ltbm_vpatable')
+    # TSA 结果导入表 TsaTable
+    helper.load_df_to_sqlite(get_gene_df.load_tsa_result_csv(r'D:\lab\猕猴\分析\Mfuzz时间序列分析\M1Ta'), conn,
+                             'ltbm_tsatable')
+    # TSA enrichment 导入表 TsaEnrichmentTable
 
     # cur.execute('SELECT * FROM getData_m1tavariancepartition')
     cursor.close()

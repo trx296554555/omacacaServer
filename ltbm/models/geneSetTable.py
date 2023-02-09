@@ -18,6 +18,17 @@ class VpaTable(models.Model):
         app_label = 'ltbm'
 
 
+class TsaTable(models.Model):
+    id = models.AutoField(primary_key=True)
+    gene_id_ENSG = models.CharField(max_length=32, verbose_name="Ensemble ID", help_text='Ensemble Gene Uniq ID')
+    # csv表中原有的字段
+    cluster = models.CharField(max_length=16, verbose_name="Cluster")
+    is_core = models.BooleanField(verbose_name="Is Core")
+
+    class Meta:
+        app_label = 'ltbm'
+
+
 class GeneVstExpTable(models.Model):
     id = models.AutoField(primary_key=True)
     gene_id_ENSG = models.CharField(max_length=32, verbose_name="Ensemble ID", help_text='Ensemble Gene Uniq ID')
