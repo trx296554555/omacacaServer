@@ -2,6 +2,9 @@ from django.db import models
 
 
 class VpaTable(models.Model):
+    """
+    VPA 结果表
+    """
     id = models.AutoField(primary_key=True)
     gene_id_ENSG = models.CharField(max_length=32, verbose_name="Ensemble ID", help_text='Ensemble Gene Uniq ID')
     # csv表中原有的字段
@@ -19,6 +22,9 @@ class VpaTable(models.Model):
 
 
 class TsaTable(models.Model):
+    """
+    TSA 结果表
+    """
     id = models.AutoField(primary_key=True)
     gene_id_ENSG = models.CharField(max_length=32, verbose_name="Ensemble ID", help_text='Ensemble Gene Uniq ID')
     # csv表中原有的字段
@@ -27,6 +33,185 @@ class TsaTable(models.Model):
 
     class Meta:
         app_label = 'ltbm'
+
+
+class TsaEnrichmentTable(models.Model):
+    """
+    TSA 富集结果表
+    """
+    id = models.AutoField(primary_key=True)
+    # csv表中原有的字段
+    source = models.CharField(max_length=32, verbose_name="Source")
+    term_name = models.TextField(verbose_name="Term Name", help_text='Enrichment Term Name')
+    term_id = models.TextField(verbose_name="Term ID", help_text='Enrichment Term Uniq ID')
+    adjusted_p_value = models.FloatField(verbose_name="Adjusted P-value")
+    negative_log10_of_adjusted_p_value = models.FloatField(verbose_name="-log10(Adjusted P-value)")
+    term_size = models.IntegerField(verbose_name="Term Size")
+    query_size = models.IntegerField(verbose_name="Query Size")
+    intersection_size = models.IntegerField(verbose_name="Intersection Size")
+    effective_domain_size = models.IntegerField(verbose_name="Effective Domain Size")
+    intersections = models.TextField(verbose_name="Intersections")
+    # 根据csv表来源不同，添加的字段
+    model_type = models.CharField(max_length=8, verbose_name="Model")
+    cluster = models.CharField(max_length=16, verbose_name="Cluster")
+    represent_term_wsc = models.BooleanField(verbose_name="Represent_term_wsc")
+    represent_term_ap = models.BooleanField(verbose_name="Represent_term_ap")
+    # 重新计算的字段
+    rich_factor = models.FloatField(verbose_name="Rich Factor")
+
+    class Meta:
+        app_label = 'ltbm'
+
+
+class WgcnaModuleTraitTable(models.Model):
+    """
+    WGCNA 模块特征关系表
+    """
+    id = models.AutoField(primary_key=True)
+    # csv表中原有的字段
+    x = models.CharField(max_length=32, verbose_name="X")
+    y = models.CharField(max_length=32, verbose_name="Y")
+    correlation_value = models.FloatField(verbose_name="Up")
+    p_value = models.FloatField(verbose_name="Down")
+    # 根据csv表来源不同，添加的字段
+    analyse = models.CharField(max_length=8, verbose_name="Analyse")
+    model_type = models.CharField(max_length=8, verbose_name="Model")
+
+    class Meta:
+        app_label = 'ltbm'
+
+
+class WgcnaModuleInfoTable(models.Model):
+    """
+    WGCNA 模块信息总表 用于实现一对多关系
+    """
+    # id = models.AutoField(primary_key=True)
+
+    module = models.CharField(max_length=32, verbose_name="Module", primary_key=True)
+    gene_num = models.IntegerField(verbose_name="Gene Num")
+    color = models.CharField(max_length=32, verbose_name="Color")
+    label = models.IntegerField(verbose_name="Label")
+    analyse = models.CharField(max_length=8, verbose_name="Analyse")
+    model_type = models.CharField(max_length=8, verbose_name="Model")
+
+    class Meta:
+        app_label = 'ltbm'
+
+
+class WgcnaGSMMtable(models.Model):
+    """
+    WGCNA Gene-Trait Significance 和 Gene-Module Membership 结果表
+    """
+    id = models.AutoField(primary_key=True)
+    # csv表中原有的字段
+    gene_id_ENSG = models.CharField(max_length=32, verbose_name="Ensemble ID", help_text='Ensemble Gene Uniq ID')
+    module = models.ForeignKey('WgcnaModuleInfoTable', on_delete=models.CASCADE, related_name='gsmm_info',
+                               verbose_name="Module")
+    gs_age = models.FloatField(db_column='GS.Age')
+    p_gs_age = models.FloatField(db_column='p.GS.Age')
+    gs_sex = models.FloatField(db_column='GS.Sex')
+    p_gs_sex = models.FloatField(db_column='p.GS.Sex')
+    gs_state = models.FloatField(db_column='GS.State')
+    p_gs_state = models.FloatField(db_column='p.GS.State')
+    gs_rin = models.FloatField(db_column='GS.RIN')
+    p_gs_rin = models.FloatField(db_column='p.GS.RIN')
+    gs_hemoglobin_raw = models.FloatField(db_column='GS.Hemoglobin_raw')
+    p_gs_hemoglobin_raw = models.FloatField(db_column='p.GS.Hemoglobin_raw')
+    gs_conditionc1 = models.FloatField(db_column='GS.ConditionC1')
+    p_gs_conditionc1 = models.FloatField(db_column='p.GS.ConditionC1')
+    gs_conditionc2 = models.FloatField(db_column='GS.ConditionC2')
+    p_gs_conditionc2 = models.FloatField(db_column='p.GS.ConditionC2')
+    gs_conditionc3 = models.FloatField(db_column='GS.ConditionC3')
+    p_gs_conditionc3 = models.FloatField(db_column='p.GS.ConditionC3')
+    gs_conditionc4 = models.FloatField(db_column='GS.ConditionC4')
+    p_gs_conditionc4 = models.FloatField(db_column='p.GS.ConditionC4')
+    gs_conditionc5 = models.FloatField(db_column='GS.ConditionC5')
+    p_gs_conditionc5 = models.FloatField(db_column='p.GS.ConditionC5')
+    mm_blue = models.FloatField(db_column='MM_blue')
+    mm_magenta = models.FloatField(db_column='MM_magenta')
+    mm_pink = models.FloatField(db_column='MM_pink')
+    mm_brown = models.FloatField(db_column='MM_brown')
+    mm_green = models.FloatField(db_column='MM_green')
+    mm_greenyellow = models.FloatField(db_column='MM_greenyellow')
+    mm_turquoise = models.FloatField(db_column='MM_turquoise')
+    mm_lightcyan = models.FloatField(db_column='MM_lightcyan')
+    mm_salmon = models.FloatField(db_column='MM_salmon')
+    mm_yellow = models.FloatField(db_column='MM_yellow')
+    mm_midnightblue = models.FloatField(db_column='MM_midnightblue')
+    mm_grey60 = models.FloatField(db_column='MM_grey60')
+    mm_black = models.FloatField(db_column='MM_black')
+    mm_tan = models.FloatField(db_column='MM_tan')
+    mm_purple = models.FloatField(db_column='MM_purple')
+    mm_cyan = models.FloatField(db_column='MM_cyan')
+    mm_red = models.FloatField(db_column='MM_red')
+    mm_grey = models.FloatField(db_column='MM_grey')
+    p_mm_blue = models.FloatField(db_column='p_MM_blue')
+    p_mm_magenta = models.FloatField(db_column='p_MM_magenta')
+    p_mm_pink = models.FloatField(db_column='p_MM_pink')
+    p_mm_brown = models.FloatField(db_column='p_MM_brown')
+    p_mm_green = models.FloatField(db_column='p_MM_green')
+    p_mm_greenyellow = models.FloatField(db_column='p_MM_greenyellow')
+    p_mm_turquoise = models.FloatField(db_column='p_MM_turquoise')
+    p_mm_lightcyan = models.FloatField(db_column='p_MM_lightcyan')
+    p_mm_salmon = models.FloatField(db_column='p_MM_salmon')
+    p_mm_yellow = models.FloatField(db_column='p_MM_yellow')
+    p_mm_midnightblue = models.FloatField(db_column='p_MM_midnightblue')
+    p_mm_grey60 = models.FloatField(db_column='p_MM_grey60')
+    p_mm_black = models.FloatField(db_column='p_MM_black')
+    p_mm_tan = models.FloatField(db_column='p_MM_tan')
+    p_mm_purple = models.FloatField(db_column='p_MM_purple')
+    p_mm_cyan = models.FloatField(db_column='p_MM_cyan')
+    p_mm_red = models.FloatField(db_column='p_MM_red')
+    p_mm_grey = models.FloatField(db_column='p_MM_grey')
+    analyse = models.CharField(max_length=8, verbose_name="Analyse")
+    model_type = models.CharField(max_length=8, verbose_name="Model")
+
+    class Meta:
+        app_label = 'ltbm'
+
+
+class WgcnaEnrichmentTable(models.Model):
+    """
+    WGCNA Enrichment Table
+    """
+    id = models.AutoField(primary_key=True)
+    # csv表中原有的字段
+    source = models.CharField(max_length=32, verbose_name="Source")
+    term_name = models.TextField(verbose_name="Term Name", help_text='Enrichment Term Name')
+    term_id = models.TextField(verbose_name="Term ID", help_text='Enrichment Term Uniq ID')
+    adjusted_p_value = models.FloatField(verbose_name="Adjusted P-value")
+    negative_log10_of_adjusted_p_value = models.FloatField(verbose_name="-log10(Adjusted P-value)")
+    term_size = models.IntegerField(verbose_name="Term Size")
+    query_size = models.IntegerField(verbose_name="Query Size")
+    intersection_size = models.IntegerField(verbose_name="Intersection Size")
+    effective_domain_size = models.IntegerField(verbose_name="Effective Domain Size")
+    intersections = models.TextField(verbose_name="Intersections")
+    # 根据csv表来源不同，添加的字段
+    model_type = models.CharField(max_length=8, verbose_name="Model")
+    module = models.ForeignKey('WgcnaModuleInfoTable', on_delete=models.CASCADE, related_name='enrichment',
+                               verbose_name="Module")
+    represent_term_wsc = models.BooleanField(verbose_name="Represent_term_wsc")
+    represent_term_ap = models.BooleanField(verbose_name="Represent_term_ap")
+    # 重新计算的字段
+    rich_factor = models.FloatField(verbose_name="Rich Factor")
+
+
+class WgcnaTop30NetworkTable(models.Model):
+    """
+    WGCNA Top30 Network Table
+    """
+    id = models.AutoField(primary_key=True)
+    # csv表中原有的字段
+    fromnode = models.CharField(max_length=32, db_column='fromNode', blank=True, null=True)
+    tonode = models.CharField(max_length=32, db_column='toNode', blank=True, null=True)
+    weight = models.FloatField(blank=True, null=True)
+    direction = models.TextField(blank=True, null=True)
+    fromaltname = models.CharField(max_length=32, db_column='fromAltName', blank=True, null=True)
+    toaltname = models.CharField(max_length=32, db_column='toAltName', blank=True, null=True)
+    # 根据csv表来源不同，添加的字段
+    model_type = models.CharField(max_length=8, verbose_name="Model")
+    module = models.ForeignKey('WgcnaModuleInfoTable', on_delete=models.CASCADE, related_name='network',
+                               verbose_name="Module")
 
 
 class GeneVstExpTable(models.Model):

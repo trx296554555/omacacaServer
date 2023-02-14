@@ -1,4 +1,5 @@
 from ltbm.models import VpaTable, GeneVstExpTable
+from ltbm.models import WgcnaModuleInfoTable
 from django_filters import rest_framework as filters
 
 
@@ -16,4 +17,12 @@ class GeneVstExpTableFilter(filters.FilterSet):
         fields = {
             'gene_id_ENSG': ['exact'],
             'model_type': ['exact']
+        }
+
+
+class WgcnaModuleInfoTableFilter(filters.FilterSet):
+    class Meta:
+        model = WgcnaModuleInfoTable  # 模型名
+        fields = {
+            'module': ['exact'],
         }
