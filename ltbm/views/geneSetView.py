@@ -89,6 +89,7 @@ class GeneVstExpGroupByView(ListAPIView):
         out_dict = out_data.to_dict(orient='records')
         # 获取out_data的分组数据并统计
         group_exp_df = out_data.groupby([group_by]).describe()
+        group_exp_df = group_exp_df.fillna(0)
         describe_dict = group_exp_df['exp'].to_dict(orient="index")
 
         return Response({'data': out_dict, 'describe': describe_dict})
