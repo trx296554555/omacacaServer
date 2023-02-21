@@ -32,6 +32,7 @@ urlpatterns = [
     path('metaumap', views.UmapTableView.as_view()),
     path('vpatable', views.VpaTableView.as_view()),
     path('geneexp', views.GeneVstExpTableView.as_view()),
+    path('geneexpgroupby', views.GeneVstExpGroupByView.as_view()),
     path('tsares', views.TsaResView.as_view()),
     path('wgcnamttable', views.WgcnaMtTableView.as_view()),
     path('wgcnares', views.WgcnaResView.as_view()),
