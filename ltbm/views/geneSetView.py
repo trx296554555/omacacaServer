@@ -58,10 +58,11 @@ class GeneVstExpGroupByView(ListAPIView):
         model_type = self.request.query_params.get('model_type', 'M1Ta')
         gene_id_ENSG = self.request.query_params.get('gene_id_ENSG', None)
         group_by = self.request.query_params.get('groupby', 'stage')
-        lang = self.request.query_params.get('lang', None)
-
-        if model_type == 'M1Ta':
+        lang = self.request.query_params.get('lang', 'zh_CN')
+        if model_type == 'M1Ta' and lang == 'en':
             meta_data = Metatable.objects.filter(lang=lang, is_adult='F')
+        elif model_type == 'M1Ta' and lang == 'zh_CN':
+            meta_data = Metatable.objects.filter(lang=lang, is_adult='否')
         elif model_type == 'M4Ta':
             meta_data = Metatable.objects.filter(lang=lang)
         exp_data = GeneVstExpTable.objects.filter(gene_id_ENSG=gene_id_ENSG, model_type=model_type)
