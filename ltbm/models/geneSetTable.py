@@ -30,6 +30,7 @@ class TsaTable(models.Model):
     # csv表中原有的字段
     cluster = models.CharField(max_length=16, verbose_name="Cluster")
     is_core = models.BooleanField(verbose_name="Is Core")
+    membership = models.FloatField(verbose_name="Membership")
 
     class Meta:
         app_label = 'ltbm'

@@ -36,9 +36,11 @@ def load_tsa_result_csv(tsa_res_path):
     # 遍历 tsa_res_path 下名为 聚类结果 的文件夹
     # 读取前缀为gene_ID_的txt文件，其中每一行为一个gene_id_ENSG
     # 一个文件对应一个cluster，将cluster名和gene_id_ENSG存入字典，并转换为dataframe
+    # 并添加membership文件中，改gene的最高membership值
     tsa_dict = {}
     cluster_path = os.path.join(tsa_res_path, '聚类结果')
     core_cluster_path = os.path.join(tsa_res_path, '核心基因集')
+    membership_file_path = os.path.join(tsa_res_path, 'all_gene_membership.csv')
     for name in os.listdir(cluster_path):
         if name.startswith('geneID_'):
             cluster = name.replace('geneID_', '').replace('.txt', '')
@@ -55,6 +57,15 @@ def load_tsa_result_csv(tsa_res_path):
     # 重置index，原index为gene_id_ENSG
     df_data.reset_index(inplace=True)
     df_data.rename(columns={'index': 'gene_id_ENSG'}, inplace=True)
+    # 添加membership
+    df_membership = helper.csv_to_data_frame(membership_file_path, {'Unnamed: 0': 'gene_id_ENSG'})
+
+    # 在列1到20中，找到每一行的最大值，作为membership
+    df_membership['membership'] = df_membership.iloc[:, 1:21].max(axis=1)
+    # 删除列1到20
+    df_membership.drop(df_membership.iloc[:, 1:21], inplace=True, axis=1)
+    # 将df_data和df_membership合并
+    df_data = pd.merge(df_data, df_membership, on='gene_id_ENSG', how='left')
     return df_data
 
 
