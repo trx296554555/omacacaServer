@@ -133,13 +133,13 @@ def load_wgcna_gs_mm_csv(wgcna_gs_mm_file_path):
     df_data = pd.read_csv(wgcna_gs_mm_file_path, index_col=0)
     df_data.reset_index(inplace=True)
     df_data.rename(columns={'index': 'gene_id_ENSG'}, inplace=True)
+    # 将除了前两列的列数据，取绝对值
+    df_data.iloc[:, 2:] = df_data.iloc[:, 2:].abs()
     # 添加analyse列和 model_type列
     df_data['analyse'] = 'WGCNA'
     df_data['model_type'] = 'M1Ta'
-    # 只导入gene_id_ENSG和module，前100行
     # 列名module 改为 mo_id_id
     df_data.rename(columns={'module': 'module_id'}, inplace=True)
-
     return df_data
 
 
